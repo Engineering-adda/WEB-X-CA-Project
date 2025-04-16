@@ -1,0 +1,98 @@
+/* General styling for body */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+}
+
+/* Container for all content */
+.container {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Styling for form inputs */
+input, button {
+    padding: 12px 15px;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+/* Button styling */
+button {
+    background-color: #764ba2;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #667eea;
+}
+
+/* Links styling */
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Card styles for contacts and birthdays */
+.contact-card, .birthday-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 10px;
+    width: 45%;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.birthday-card {
+    background-color: rgba(255, 99, 71, 0.3); /* Soft red for birthdays */
+}
+
+/* Flexbox for card alignment */
+.birthday-list, .contact-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+/* Form layout */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-card, .birthday-card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    input {
+        width: 80%;
+    }
+}

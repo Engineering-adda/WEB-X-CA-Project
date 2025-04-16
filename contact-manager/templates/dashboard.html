@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2, h3 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        input {
+            padding: 12px 15px;
+            margin: 10px 0;
+            width: 80%;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 12px;
+            width: 80%;
+            background-color: #764ba2;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #667eea;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .birthday-list, .contact-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+
+        .contact-card, .birthday-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px;
+            width: 45%;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .birthday-card {
+            background-color: rgba(255, 99, 71, 0.3);
+        }
+
+        .action-links a {
+            color: #fff;
+            margin: 0 8px;
+            font-weight: bold;
+        }
+
+        .action-links a.edit {
+            color: #00ffcc;
+        }
+
+        .action-links a.delete {
+            color: #ff6666;
+        }
+
+        .action-links a.qr {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Hello, {{ session['username'] }}</h2>
+
+        <h3>Add Contact</h3>
+        <form action="/add_contact" method="POST">
+            <input name="name" placeholder="Name" required>
+            <input name="phone" placeholder="Phone" required>
+            <input name="dob" type="date" required>
+            <button type="submit">Add</button>
+        </form>
+
+        <h3>Search Contacts</h3>
+        <form method="GET" action="/search">
+            <input name="q" placeholder="Search..." required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if birthdays %}
+        <h3>🎂 Today's Birthdays:</h3>
+        <div class="birthday-list">
+            {% for b in birthdays %}
+                <div class="birthday-card">
+                    <p>{{ b['name'] }} - {{ b['phone'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <h3>Your Contacts:</h3>
+        <div class="contact-list">
+            {% for contact in contacts %}
+                <div class="contact-card">
+                    <p>{{ contact['name'] }} - {{ contact['phone'] }}</p>
+                    <div class="action-links">
+                        <a class="edit" href="/edit/{{ contact['_id'] }}">✏️ Edit</a>
+                        |
+                        <a class="delete" href="/delete/{{ contact['_id'] }}">🗑️ Delete</a>
+                        |
+                        <a class="qr" href="/qr/{{ contact['_id'] }}">📱 QR Code</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="/logout">Logout</a>
+    </div>
+</body>
+</html>
